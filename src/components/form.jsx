@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Input({ labelName, inputType = "text", insertFunc = false }) {
+function Input({ labelName, inputType = "text", insertState }) {
   const [isText, setIsText] = useState("");
 
   const handleInputChange = (e) => {
@@ -10,10 +10,10 @@ function Input({ labelName, inputType = "text", insertFunc = false }) {
   return (
     <label>
       {labelName}:
-      {insertFunc ? (
-        <div>{isText}</div>
+      {insertState ? (
+        <div className="submitted-text">{isText}</div>
       ) : (
-        <input type={inputType} onChange={handleInputChange} />
+        <input type={inputType} onChange={handleInputChange} value={isText} />
       )}
     </label>
   );
@@ -22,66 +22,69 @@ function Input({ labelName, inputType = "text", insertFunc = false }) {
 function Form() {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  function HandleFormSubmit(e) {
+  function handleFormToggle(e) {
     e.preventDefault();
-    setIsSubmitted(true);
-    console.log(e.target.form.length - 1);
+    e.target.innerText === "Edit"
+      ? setIsSubmitted(false)
+      : setIsSubmitted(true);
   }
+
   return (
     <>
       <form>
         <div className="section">
-          <Input labelName={"First Name"} insertFunc={isSubmitted} />
-          <Input labelName={"Last Name"} insertFunc={isSubmitted} />
+          <Input labelName={"First Name"} insertState={isSubmitted} />
+          <Input labelName={"Last Name"} insertState={isSubmitted} />
           <Input
             labelName={"Email"}
             inputType={"mail"}
-            insertFunc={isSubmitted}
+            insertState={isSubmitted}
           />
           <Input
             labelName={"Telephone"}
             inputType={"tel"}
-            insertFunc={isSubmitted}
+            insertState={isSubmitted}
           />
         </div>
         <div className="section">
-          <Input labelName={"School"} insertFunc={isSubmitted} />
-          <Input labelName={"Degree Type"} insertFunc={isSubmitted} />
+          <Input labelName={"School"} insertState={isSubmitted} />
+          <Input labelName={"Degree Type"} insertState={isSubmitted} />
           <div className="education-dates">
             <Input
               labelName={"Start Date"}
               inputType={"date"}
-              insertFunc={isSubmitted}
+              insertState={isSubmitted}
             />
             <Input
               labelName={"End Date"}
               inputType={"date"}
-              insertFunc={isSubmitted}
+              insertState={isSubmitted}
             />
           </div>
         </div>
         <div className="section">
-          <Input labelName={"Company"} insertFunc={isSubmitted} />
-          <Input labelName={"Position"} insertFunc={isSubmitted} />
+          <Input labelName={"Company"} insertState={isSubmitted} />
+          <Input labelName={"Position"} insertState={isSubmitted} />
           <Input
             labelName={"Major Responsiblities"}
             inputType="textarea"
-            insertFunc={isSubmitted}
+            insertState={isSubmitted}
           />
           <div className="job-dates">
             <Input
               labelName={"Start Date"}
               inputType={"date"}
-              insertFunc={isSubmitted}
+              insertState={isSubmitted}
             />
             <Input
               labelName={"End Date"}
               inputType={"date"}
-              insertFunc={isSubmitted}
+              insertState={isSubmitted}
             />
           </div>
         </div>
-        <button onClick={HandleFormSubmit}>submit</button>
+        <button onClick={handleFormToggle}>Edit</button>
+        <button onClick={handleFormToggle}>Submit</button>
       </form>
     </>
   );
