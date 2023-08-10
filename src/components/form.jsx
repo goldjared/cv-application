@@ -24,9 +24,9 @@ function Form() {
 
   function handleFormToggle(e) {
     e.preventDefault();
-    e.target.innerText === "Edit"
-      ? setIsSubmitted(false)
-      : setIsSubmitted(true);
+    isSubmitted === false
+      ? setIsSubmitted(true)
+      : setIsSubmitted(false);
   }
 
   return (
@@ -83,8 +83,7 @@ function Form() {
             />
           </div>
         </div>
-        <button onClick={handleFormToggle}>Edit</button>
-        <button onClick={handleFormToggle}>Submit</button>
+        <button onClick={handleFormToggle}>{isSubmitted ? 'Edit' : 'Submit'}</button>
       </form>
     </>
   );
