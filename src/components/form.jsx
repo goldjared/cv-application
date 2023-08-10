@@ -8,14 +8,16 @@ function Input({ labelName, inputType = "text", insertState }) {
   };
 
   return (
-    <label>
-      {labelName}:
+    <>
       {insertState ? (
         <div className="submitted-text">{isText}</div>
       ) : (
-        <input type={inputType} onChange={handleInputChange} value={isText} />
+        <label>
+          {labelName}
+          <input type={inputType} onChange={handleInputChange} value={isText} />
+        </label>
       )}
-    </label>
+    </>
   );
 }
 
@@ -24,14 +26,13 @@ function Form() {
 
   function handleFormToggle(e) {
     e.preventDefault();
-    isSubmitted === false
-      ? setIsSubmitted(true)
-      : setIsSubmitted(false);
+    isSubmitted === false ? setIsSubmitted(true) : setIsSubmitted(false);
   }
 
   return (
     <>
       <form>
+        <h3>CV-App (1st react project!)</h3>
         <div className="section">
           <Input labelName={"First Name"} insertState={isSubmitted} />
           <Input labelName={"Last Name"} insertState={isSubmitted} />
@@ -83,7 +84,9 @@ function Form() {
             />
           </div>
         </div>
-        <button onClick={handleFormToggle}>{isSubmitted ? 'Edit' : 'Submit'}</button>
+        <button onClick={handleFormToggle}>
+          {isSubmitted ? "Edit" : "Submit"}
+        </button>
       </form>
     </>
   );
