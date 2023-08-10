@@ -1,82 +1,90 @@
+import { useState } from "react";
 
-function StartEndDate() {
+function Input({ labelName, inputType = "text", insertFunc = false }) {
+  const [isText, setIsText] = useState("");
+
+  const handleInputChange = (e) => {
+    setIsText(e.target.value);
+  };
+
   return (
-    <div className='dates'>
     <label>
-      Start Date:
-      <input type="date" name="" id="start" />
+      {labelName}:
+      {insertFunc ? (
+        <div>{isText}</div>
+      ) : (
+        <input type={inputType} onChange={handleInputChange} />
+      )}
     </label>
-    <label>
-      End Date:
-      <input type="date" name="" id="end" />
-    </label>
-    </div>
-  )
-}
-function GeneralForm() {
-  return (
-    <div className='general'>
-    <label>
-      First Name:
-      <input type="text" />
-    </label>
-    <label>
-      Last Name:
-      <input type="text" />
-    </label>
-    <label>
-      Email:
-      <input type="email" name="" id="" />
-    </label>
-    <label>
-      Phone Number:
-      <input type="tel" name="" id="" />
-    </label>
-    </div>
-  )
+  );
 }
 
-function Education() {
+function Form() {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  function HandleFormSubmit(e) {
+    e.preventDefault();
+    setIsSubmitted(true);
+    console.log(e.target.form.length - 1);
+  }
   return (
-    <div className='education'>
-    <label>
-      School:
-      <input type="text" />
-    </label>
-    <label>
-      Degree/Major:
-      <input type="text" />
-    </label>
-    <StartEndDate/>
-    <label>
-      Phone Number:
-      <input type="tel" name="" id="" />
-    </label>
-    </div>
-  )
+    <>
+      <form>
+        <div className="section">
+          <Input labelName={"First Name"} insertFunc={isSubmitted} />
+          <Input labelName={"Last Name"} insertFunc={isSubmitted} />
+          <Input
+            labelName={"Email"}
+            inputType={"mail"}
+            insertFunc={isSubmitted}
+          />
+          <Input
+            labelName={"Telephone"}
+            inputType={"tel"}
+            insertFunc={isSubmitted}
+          />
+        </div>
+        <div className="section">
+          <Input labelName={"School"} insertFunc={isSubmitted} />
+          <Input labelName={"Degree Type"} insertFunc={isSubmitted} />
+          <div className="education-dates">
+            <Input
+              labelName={"Start Date"}
+              inputType={"date"}
+              insertFunc={isSubmitted}
+            />
+            <Input
+              labelName={"End Date"}
+              inputType={"date"}
+              insertFunc={isSubmitted}
+            />
+          </div>
+        </div>
+        <div className="section">
+          <Input labelName={"Company"} insertFunc={isSubmitted} />
+          <Input labelName={"Position"} insertFunc={isSubmitted} />
+          <Input
+            labelName={"Major Responsiblities"}
+            inputType="textarea"
+            insertFunc={isSubmitted}
+          />
+          <div className="job-dates">
+            <Input
+              labelName={"Start Date"}
+              inputType={"date"}
+              insertFunc={isSubmitted}
+            />
+            <Input
+              labelName={"End Date"}
+              inputType={"date"}
+              insertFunc={isSubmitted}
+            />
+          </div>
+        </div>
+        <button onClick={HandleFormSubmit}>submit</button>
+      </form>
+    </>
+  );
 }
 
-function Experience() {
-  return (
-    <div className='experience'>
-    <label>
-      Company:
-      <input type="text" />
-    </label>
-    <label>
-      Position:
-      <input type="text" />
-    </label>
-    <label>
-      Major Responsibilities:
-      <input type="area" name="" id="" />
-    </label>
-    <label>
-      Phone Number:
-      <input type="tel" name="" id="" />
-    </label>
-    <StartEndDate/>
-    </div>
-  )
-}
-export { GeneralForm, Education, Experience }
+export { Form };
