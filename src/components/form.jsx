@@ -39,7 +39,7 @@ function Form() {
   return (
     <>
       <form>
-        <h3>CV-App (1st react project!)</h3>
+        <h3>CV-App</h3>
         <div className="section">
           <Input
             labelName={"First Name"}
