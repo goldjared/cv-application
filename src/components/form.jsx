@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-function Input({ labelName, inputType = "text", insertState }) {
+function Input({
+  labelName,
+  inputType = "text",
+  insertState,
+  includeLabel = false,
+}) {
   const [isText, setIsText] = useState("");
 
   const handleInputChange = (e) => {
@@ -10,7 +15,9 @@ function Input({ labelName, inputType = "text", insertState }) {
   return (
     <>
       {insertState ? (
-        <div className="submitted-text">{isText}</div>
+        <div className="submitted-text">
+          {includeLabel ? labelName + ": " + isText : isText}
+        </div>
       ) : (
         <label>
           {labelName}
@@ -34,8 +41,14 @@ function Form() {
       <form>
         <h3>CV-App (1st react project!)</h3>
         <div className="section">
-          <Input labelName={"First Name"} insertState={isSubmitted} />
-          <Input labelName={"Last Name"} insertState={isSubmitted} />
+          <Input
+            labelName={"First Name"}
+            insertState={isSubmitted}
+          />
+          <Input
+            labelName={"Last Name"}
+            insertState={isSubmitted}
+          />
           <Input
             labelName={"Email"}
             inputType={"mail"}
@@ -55,11 +68,13 @@ function Form() {
               labelName={"Start Date"}
               inputType={"date"}
               insertState={isSubmitted}
+              includeLabel={true}
             />
             <Input
               labelName={"End Date"}
               inputType={"date"}
               insertState={isSubmitted}
+              includeLabel={true}
             />
           </div>
         </div>
@@ -76,11 +91,13 @@ function Form() {
               labelName={"Start Date"}
               inputType={"date"}
               insertState={isSubmitted}
+              includeLabel={true}
             />
             <Input
               labelName={"End Date"}
               inputType={"date"}
               insertState={isSubmitted}
+              includeLabel={true}
             />
           </div>
         </div>
